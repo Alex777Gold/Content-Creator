@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">Image Gallery</h1>
+
+      <!-- Image Gallery -->
+      <div class="row">
+        {% for image in images %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img
+              src="{{ url_for('static', filename='images/' ~ image.image_filename) }}"
+              class="card-img-top"
+              alt="Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ image.title }}</h5>
+              <p class="card-text">
+                <strong>Keywords:</strong> {{ image.keywords }}
+              </p>
+              <p class="card-text">
+                <strong>Prompt:</strong> {{ image.prompt }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Form for saving data to CSV and uploading to GitHub -->
+      <form method="POST" action="/save_to_csv" class="mt-3">
+        <div class="form-group">
+          <label for="pinterest_board">Pinterest Board</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pinterest_board"
+            name="pinterest_board"
+            value="Galaxy arts"
+          />
+        </div>
+
+        <!-- Checkbox for uploading images to GitHub -->
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="upload_to_github"
+            name="upload_to_github"
+          />
+          <label class="form-check-label" for="upload_to_github">
+            Upload images to GitHub
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Save to CSV</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
